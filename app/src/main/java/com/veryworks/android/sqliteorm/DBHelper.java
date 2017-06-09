@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -83,13 +84,56 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         }
         return memo;
     }
+    // search - 데이터 검색하기
+    public List<Memo> search(String word){
+        List<Memo> datas = null;
+        try {
+            // 1. 테이블에 연결
+            Dao<Memo,Integer> dao = getDao(Memo.class);
+            // 2 데이터 검색하기
+            String query = "select * from memo where content like '%"+word+"%'";
+            GenericRawResults<Memo> temps = dao.queryRaw(query, dao.getRawRowMapper());
+            datas = temps.getResults();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return datas;
+    }
 
     // Update
-    public void update(){
-
+    public void update(Memo memo){
+        try {
+            // 1. 테이블에 연결
+            Dao<Memo,Integer> dao = getDao(Memo.class);
+            // 2. 데이터를 수정
+            dao.update(memo);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-    // Delete
-    public void delete(){
-
+    // Delete Object
+    public void delete(Memo memo){
+        try {
+            // 1. 테이블에 연결
+            Dao<Memo,Integer> dao = getDao(Memo.class);
+            // 2. 데이터를 삭제
+            dao.delete(memo);
+            // * 참고 : 아이디로 삭제
+            // dao.deleteById(3);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    // Delete By Id
+    public void delete(int id){
+        try {
+            // 1. 테이블에 연결
+            Dao<Memo,Integer> dao = getDao(Memo.class);
+            // 2. 데이터를 삭제
+            dao.deleteById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

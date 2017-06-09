@@ -2,9 +2,6 @@ package com.veryworks.android.sqliteorm;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,9 +24,30 @@ public class MainActivity extends AppCompatActivity {
 //        Log.i("Memo",one.getId()+" : title="+one.getTitle()+", content="+one.getContent());
 
         // 3. 데이터 전체 읽어오기
-        List<Memo> datas = helper.readAll();
-        for(Memo one : datas){
-            Log.i("Memo",one.getId()+" : title="+one.getTitle()+", content="+one.getContent());
-        }
+//        List<Memo> datas = helper.readAll();
+//        for(Memo one : datas){
+//            Log.i("Memo",one.getId()+" : title="+one.getTitle()+", content="+one.getContent());
+//        }
+
+        // 4. 데이터 검색하기
+        // 기본 데이터 넣기
+//        helper.create(new Memo("제목1","내용1"));
+//        helper.create(new Memo("제목2","내용2"));
+//        helper.create(new Memo("제목3","내용3"));
+//        helper.create(new Memo("제목4","내용4"));
+//
+//        // 검색하기
+//        List<Memo> datas = helper.search("내용3");
+//        for(Memo one : datas){
+//            Log.i("Memo",one.getId()+" : title="+one.getTitle()+", content="+one.getContent());
+//        }
+
+        // 5. 수정하기
+//        Memo memo = helper.read(3);
+//        memo.setContent("내용");
+//        helper.update(memo);
+
+        // 6. 삭제하기
+        helper.delete(5);
     }
 }
