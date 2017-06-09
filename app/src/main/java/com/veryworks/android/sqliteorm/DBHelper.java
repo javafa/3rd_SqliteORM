@@ -18,10 +18,22 @@ import java.util.List;
 
 public class DBHelper extends OrmLiteSqliteOpenHelper {
     public static final String DATABASE_NAME = "database.db";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
+
+    private static DBHelper instance = null;
+
+    // DBHelper 를 메모리에 하나만 있게 해서 효율을 높혀보세~~~~
+    // Singleton 으로 구성해보세.
+    public static DBHelper getInstance(Context context){
+        if(instance == null) {
+            instance = new DBHelper(context);
+        }
+        return instance;
+    }
+
 
     // 최초 호출될때 database.db 파일을 /data/data/패키지명/database/ 디렉토리 아래에 생성해준다.
-    public DBHelper(Context context) {
+    private DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -31,6 +43,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         // 여기서 테이블 생성해야 한다.
         try {
             TableUtils.createTable(connectionSource, Memo.class);
+            TableUtils.createTable(connectionSource, Bbs.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,6 +58,11 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             // 2. Memo 테이블을 삭제하고 다시 생성한다.
             // 3. 백업된 데이터를 다시 입력합니다.
             // 4. 임시 테이블 삭제
+        try {
+            TableUtils.createTable(connectionSource, Bbs.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     // Create - 데이터를 입력

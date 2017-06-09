@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DBHelper helper = new DBHelper(this);
+        DBHelper helper = DBHelper.getInstance(this);
         // 1. 데이터 입력
 //        for(int i=0 ; i<10 ; i++) {
 //            Memo memo = new Memo();
@@ -49,5 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
         // 6. 삭제하기
         helper.delete(5);
+
+        // BbsDao 의 접근제한자를 private 으로 만들고 사용해 보세요~
+
+        BbsDao dao = new BbsDao(this);
+        dao.create(new Bbs());
     }
 }
