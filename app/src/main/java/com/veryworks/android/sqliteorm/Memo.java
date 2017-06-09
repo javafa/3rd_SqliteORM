@@ -19,18 +19,16 @@ public class Memo {
     @DatabaseField
     private Date date;
 
-    @DatabaseField
-    private String name;
-
     public Memo(){
         // OrmLite는 기본생성자가 없으면 동작하지 않습니다.
+        setDate();
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 
@@ -54,7 +52,8 @@ public class Memo {
         return date;
     }
 
-    public void setDate(Date date) {
+    private void setDate() {
+        Date date = new Date(System.currentTimeMillis());
         this.date = date;
     }
 }
