@@ -12,13 +12,19 @@ import java.util.List;
  */
 
 public class BbsDao {
+    private static BbsDao bbsDao = null;
 
-    DBHelper helper;
-    Dao<Bbs,Integer> dao;
+    static Dao<Bbs,Integer> dao;
+
+    public static BbsDao getInstance(Context context) {
+        if(bbsDao == null)
+            bbsDao = new BbsDao(context);
+        return bbsDao;
+    }
 
     private BbsDao(Context context){
         // 데이터베이스 연결
-        helper = DBHelper.getInstance(context);
+        DBHelper helper = DBHelper.getInstance(context);
         try {
             dao = helper.getDao(Bbs.class);
         } catch (SQLException e) {

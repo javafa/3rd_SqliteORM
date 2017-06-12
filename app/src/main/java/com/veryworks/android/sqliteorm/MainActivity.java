@@ -50,9 +50,7 @@ public class MainActivity extends AppCompatActivity {
         // 6. 삭제하기
         helper.delete(5);
 
-        // BbsDao 의 접근제한자를 private 으로 만들고 사용해 보세요~
-
-        BbsDao dao = new BbsDao(this);
+        BbsDao dao = BbsDao.getInstance(getBaseContext());
         dao.create(new Bbs());
     }
 }

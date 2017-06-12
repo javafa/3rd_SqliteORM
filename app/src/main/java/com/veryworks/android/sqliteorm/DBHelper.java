@@ -22,15 +22,12 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
     private static DBHelper instance = null;
 
-    // DBHelper 를 메모리에 하나만 있게 해서 효율을 높혀보세~~~~
-    // Singleton 으로 구성해보세.
     public static DBHelper getInstance(Context context){
         if(instance == null) {
             instance = new DBHelper(context);
         }
         return instance;
     }
-
 
     // 최초 호출될때 database.db 파일을 /data/data/패키지명/database/ 디렉토리 아래에 생성해준다.
     private DBHelper(Context context) {
